@@ -1,0 +1,251 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Azul-noite amostrado do fundo da logo: rgb(11,16,35) */
+  --color-noite: #0b1023;
+  --color-noite-2: #10172f;
+  --color-noite-3: #18213f;
+  --color-linha: #263154;
+  /* Dourado amostrado das letras da logo — só acento */
+  --color-ouro: #d8b676;
+  --color-ouro-claro: #f0d59c;
+  /* Materiais do negócio */
+  --color-aco: #111317;
+  --color-aco-2: #1b1e24;
+  --color-galva: #c9cdd1;
+  --color-galva-2: #e3e5e7;
+  --color-galva-escuro: #7d858d;
+  --color-mel: #c47f2c;
+  --color-mel-claro: #e3a557;
+  /* Texto */
+  --color-papel: #eceef3;
+  --color-nevoa: #a7aec0;
+
+  --font-display: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-noite);
+    color: var(--color-papel);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-ouro);
+    color: var(--color-noite);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ouro-claro);
+    outline-offset: 3px;
+  }
+  img,
+  video {
+    max-width: 100%;
+    display: block;
+  }
+}
+
+@layer components {
+  /* Títulos: Archivo expandida */
+  .titulo {
+    font-family: var(--font-display);
+    font-stretch: 125%;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+  .titulo-medio {
+    font-family: var(--font-display);
+    font-stretch: 118%;
+    font-weight: 700;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+  /* Anotação de projeto: Plex Mono */
+  .nota {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .container-site {
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+    padding-inline: 16px;
+  }
+  @media (min-width: 768px) {
+    .container-site {
+      padding-inline: 40px;
+    }
+  }
+
+  /* Botões */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 48px;
+    padding: 0.8rem 1.4rem;
+    font-family: var(--font-display);
+    font-stretch: 112%;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    border: 1px solid transparent;
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      border-color 0.2s,
+      transform 0.2s;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn-ouro {
+    background: var(--color-ouro);
+    color: var(--color-noite);
+  }
+  .btn-ouro:hover {
+    background: var(--color-ouro-claro);
+  }
+  .btn-linha {
+    border-color: color-mix(in srgb, var(--color-papel) 40%, transparent);
+    color: var(--color-papel);
+  }
+  .btn-linha:hover {
+    border-color: var(--color-papel);
+    background: color-mix(in srgb, var(--color-papel) 8%, transparent);
+  }
+  .btn-aco {
+    background: var(--color-aco);
+    color: var(--color-papel);
+  }
+  .btn-aco:hover {
+    background: var(--color-aco-2);
+  }
+
+  /* Régua técnica usada como divisor de seção */
+  .regua {
+    height: 10px;
+    background-image: repeating-linear-gradient(to right, currentColor 0 1px, transparent 1px 12px);
+    mask-image: linear-gradient(to bottom, #000 0 100%);
+    opacity: 0.35;
+  }
+}
+
+/* Revelar ao rolar (desligado com prefers-reduced-motion) */
+.revelar {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.revelar.visivel {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes traco {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.desenho-animado .traco {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: traco 2.4s cubic-bezier(0.4, 0.1, 0.2, 1) forwards;
+}
+
+@keyframes pulso {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+.marcador-pulso {
+  animation: pulso 2.2s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .revelar {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .desenho-animado .traco {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .marcador-pulso {
+    animation: none;
+    display: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Desenho técnico da seção "Anatomia" (sobre papel galvanizado) */
+.desenho {
+  --papel-desenho: var(--color-galva-2);
+  color: #1b2440;
+}
+.desenho .parte :is(path, rect, circle),
+.desenho .parte-neutra :is(path, rect, circle, line) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.desenho .parte .detalhe,
+.desenho .parte line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+}
+.desenho .parte-neutra {
+  opacity: 0.55;
+}
+.desenho .parte {
+  transition: color 0.25s;
+}
+.desenho .parte[data-ativo='true'] {
+  color: #94600f;
+}
+.desenho .parte[data-ativo='true'] .traco {
+  stroke-width: 2.6;
+  fill: rgb(196 127 44 / 0.14);
+}
+.desenho .cota line {
+  stroke: currentColor;
+  stroke-width: 1;
+}
+.desenho .rotulo-desenho {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  fill: currentColor;
+}
