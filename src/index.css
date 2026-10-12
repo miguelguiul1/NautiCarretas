@@ -29,7 +29,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 72px;
+    scroll-padding-top: 88px;
     -webkit-text-size-adjust: 100%;
   }
   body {
@@ -158,17 +158,6 @@
   transform: none;
 }
 
-@keyframes traco {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-.desenho-animado .traco {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: traco 2.4s cubic-bezier(0.4, 0.1, 0.2, 1) forwards;
-}
-
 @keyframes pulso {
   0% {
     transform: scale(1);
@@ -192,10 +181,6 @@
     transform: none;
     transition: none;
   }
-  .desenho-animado .traco {
-    animation: none;
-    stroke-dashoffset: 0;
-  }
   .marcador-pulso {
     animation: none;
     display: none;
@@ -205,47 +190,4 @@
   *::after {
     transition-duration: 0.01ms !important;
   }
-}
-
-/* Desenho técnico da seção "Anatomia" (sobre papel galvanizado) */
-.desenho {
-  --papel-desenho: var(--color-galva-2);
-  color: #1b2440;
-}
-.desenho .parte :is(path, rect, circle),
-.desenho .parte-neutra :is(path, rect, circle, line) {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-}
-.desenho .parte .detalhe,
-.desenho .parte line {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.2;
-}
-.desenho .parte-neutra {
-  opacity: 0.55;
-}
-.desenho .parte {
-  transition: color 0.25s;
-}
-.desenho .parte[data-ativo='true'] {
-  color: #94600f;
-}
-.desenho .parte[data-ativo='true'] .traco {
-  stroke-width: 2.6;
-  fill: rgb(196 127 44 / 0.14);
-}
-.desenho .cota line {
-  stroke: currentColor;
-  stroke-width: 1;
-}
-.desenho .rotulo-desenho {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  fill: currentColor;
 }

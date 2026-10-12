@@ -28,14 +28,19 @@ img 99cb8dfd-image.jpg rodoviaria-frente \
 # Encalhe
 img ccbb72d0-image.jpg jetski-frente
 img 4beb39e8-image.jpg jetski-lateral -crop 1080x760+0+580 +repage        # corta pessoas ao fundo
+img 4beb39e8-image.jpg anatomia-jetski -crop 1080x660+0+620 +repage       # base da seção "Peça por peça"
 img d823d494-image.jpg jetski-perfil
 img c63a273a-image.jpg jetski-traseira
 img 862e8fb8-image.jpg encalhe-madeira-verniz -crop 640x948+0+0 +repage    # corta o funcionário pintando
 
 # Logo (fundo #0B1023 embutido)
 LOGO="$SRC/848e7077-image.jpg"
-convert "$LOGO" -crop 820x380+130+318 +repage -strip "$OUT/logo.png"
-convert "$OUT/logo.png" -quality 90 -define webp:lossless=false "$OUT/logo.webp"
+convert "$LOGO" -crop 820x380+130+318 +repage -strip "$OUT/tmp-logo.png"
+python3 -I "$(dirname "$0")/limpar-fundo-logo.py" "$OUT/tmp-logo.png" "$OUT/logo.png"   # fundo exato #0B1023
+convert "$OUT/logo.png" -strip -define webp:lossless=true "$OUT/logo.webp"
+convert "$OUT/logo.png" -filter Lanczos -resize 300x -strip "$OUT/tmp-logo-300.png"
+python3 -I "$(dirname "$0")/limpar-fundo-logo.py" "$OUT/tmp-logo-300.png" "$OUT/tmp-logo-300.png"   # reamostragem pode reintroduzir variação
+convert "$OUT/tmp-logo-300.png" -strip -define webp:lossless=true "$OUT/logo-300.webp"
 convert "$LOGO" -crop 420x420+330+200 +repage -strip "$OUT/tmp-icon.png"
 convert "$LOGO" -crop 800x260+140+310 +repage -resize 800x -strip "$OUT/tmp-emblem.png"
 convert -size 512x512 xc:'#0B1023' \( "$OUT/tmp-emblem.png" -resize 470x \) -gravity center -composite -strip "$OUT/tmp-icon.png"

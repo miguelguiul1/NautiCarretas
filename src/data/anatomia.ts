@@ -1,5 +1,6 @@
-// Peças da carreta usadas no desenho técnico (seção "Anatomia").
-// x/y são coordenadas no viewBox do SVG (1200 × 520).
+// Peças da carreta marcadas sobre a foto real (seção "Peça por peça", foto anatomia-jetski 1080 × 660).
+// ponto: onde a peça está na foto; rotulo: onde fica a letra clicável (área livre), ligada ao ponto por uma
+// linha-guia. Ambos em % da largura/altura da foto. Peça sem `ponto` não aparece na foto, só na lista ("geral").
 // TODO-CONFIRMAR: lista de serviços de manutenção a validar com o Fábio.
 
 export type ParteId = 'engate' | 'catraca' | 'chassi' | 'bercos' | 'rodagem' | 'rolamentos' | 'galvanizacao'
@@ -10,9 +11,15 @@ export type Parte = {
   nome: string
   servico: string
   descricao: string
-  x: number
-  y: number
+  ponto?: { x: number; y: number }
+  rotulo?: { x: number; y: number }
+  /** texto curto ao lado do ponto, ex.: "no cubo" */
+  indicacao?: string
 }
+
+const W = 1080
+const H = 660
+const pct = (x: number, y: number) => ({ x: +((x / W) * 100).toFixed(2), y: +((y / H) * 100).toFixed(2) })
 
 export const PARTES: Parte[] = [
   {
@@ -22,8 +29,8 @@ export const PARTES: Parte[] = [
     servico: 'Instalação de ganchos',
     descricao:
       'Ponto onde a carreta se prende ao carro. Instalamos os ganchos e conferimos o conjunto do engate.',
-    x: 92,
-    y: 300,
+    ponto: pct(1020, 400),
+    rotulo: pct(990, 600),
   },
   {
     id: 'catraca',
@@ -31,8 +38,8 @@ export const PARTES: Parte[] = [
     nome: 'Catraca',
     servico: 'Manutenção de catracas',
     descricao: 'O guincho manual que puxa o barco para cima da carreta. Fazemos a manutenção da catraca.',
-    x: 302,
-    y: 240,
+    ponto: pct(935, 315),
+    rotulo: pct(950, 170),
   },
   {
     id: 'chassi',
@@ -40,8 +47,8 @@ export const PARTES: Parte[] = [
     nome: 'Chassi',
     servico: 'Reforma de chassi',
     descricao: 'A estrutura que carrega tudo. Reformamos chassi de aço e também estruturas de madeira.',
-    x: 560,
-    y: 328,
+    ponto: pct(640, 305),
+    rotulo: pct(620, 560),
   },
   {
     id: 'bercos',
@@ -49,18 +56,18 @@ export const PARTES: Parte[] = [
     nome: 'Berços',
     servico: 'Revestimento dos berços',
     descricao: 'Onde o casco apoia. Refazemos o revestimento dos berços para o casco assentar protegido.',
-    x: 680,
-    y: 284,
+    ponto: pct(330, 150),
+    rotulo: pct(330, 62),
   },
   {
     id: 'rodagem',
     codigo: 'E',
     nome: 'Rodagem',
-    // TODO-CONFIRMAR: o que exatamente é "rodagem central" (eixo central? roda de apoio?) e onde fica no desenho.
+    // TODO-CONFIRMAR: o que exatamente é "rodagem central" (eixo central? roda de apoio?) e onde fica na carreta (hoje o ponto E está na roda).
     servico: 'Instalação de rodagem central',
     descricao: 'Eixo, rodas e pneus. Fazemos a instalação de rodagem central.',
-    x: 892,
-    y: 458,
+    ponto: pct(540, 260),
+    rotulo: pct(590, 80),
   },
   {
     id: 'rolamentos',
@@ -68,8 +75,9 @@ export const PARTES: Parte[] = [
     nome: 'Rolamentos',
     servico: 'Revisão e troca de rolamentos',
     descricao: 'Ficam dentro do cubo da roda e sofrem com água e areia. Revisamos e trocamos quando precisa.',
-    x: 840,
-    y: 410,
+    ponto: pct(282, 295),
+    rotulo: pct(170, 560),
+    indicacao: 'no cubo',
   },
   {
     id: 'galvanizacao',
@@ -77,7 +85,5 @@ export const PARTES: Parte[] = [
     nome: 'Galvanização',
     servico: 'Galvanização',
     descricao: 'Proteção do aço contra a ferrugem, pensada para quem coloca a carreta na água.',
-    x: 1074,
-    y: 328,
   },
 ]

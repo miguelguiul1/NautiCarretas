@@ -26,14 +26,21 @@ export function Cabecalho() {
   return (
     <header
       className={cn(
-        'fixed inset-x-0 top-0 z-40 transition-[background-color,border-color] duration-300',
-        rolou ? 'border-b border-linha/70 bg-noite/95 backdrop-blur' : 'border-b border-transparent',
+        // Fundo sólido #0B1023, a mesma cor embutida no arquivo da logo: assim não aparece retângulo em volta dela
+        'fixed inset-x-0 top-0 z-40 border-b bg-noite transition-[border-color] duration-300',
+        rolou ? 'border-linha/70' : 'border-transparent',
       )}
     >
-      <div className="container-site flex h-16 items-center justify-between gap-6">
+      <div className="container-site flex h-20 items-center justify-between gap-6">
         <a href="#topo" className="flex shrink-0 items-center" aria-label="Nauticarretas, voltar ao início">
           {/* Logo com fundo #0B1023 embutido, aplicada sobre a mesma cor */}
-          <img src="/media/logo.webp" alt="" width={820} height={380} className="h-11 w-auto bg-noite" />
+          <img
+            src="/media/logo-300.webp"
+            alt=""
+            width={300}
+            height={139}
+            className="h-14 w-auto bg-noite sm:h-16"
+          />
         </a>
 
         <nav aria-label="Seções" className="hidden lg:block">

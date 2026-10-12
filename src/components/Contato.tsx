@@ -21,7 +21,7 @@ export function Contato() {
               <IconeWhatsApp width={16} height={16} /> WhatsApp
             </span>
             <span>
-              <span className="titulo block text-[2rem] whitespace-nowrap sm:text-5xl">
+              <span className="titulo block text-[clamp(1.4rem,7.6vw,2rem)] whitespace-nowrap sm:text-5xl">
                 {NEGOCIO.whatsappExibicao}
               </span>
               <span className="mt-3 flex items-center gap-2 text-nevoa group-hover:text-papel">

@@ -1,4 +1,4 @@
-// Tira screenshots em 390 e 1440 px e verifica console, 404 e rolagem horizontal.
+// Tira screenshots em 320, 390 e 1440 px e verifica console, 404 e rolagem horizontal.
 // Uso: npm run build && npm run screenshots   (sobe o vite preview sozinho)
 import { spawn } from 'node:child_process'
 import { existsSync, mkdirSync } from 'node:fs'
@@ -6,7 +6,7 @@ import { chromium } from '@playwright/test'
 
 const PORTA = 4173
 const URL_BASE = `http://localhost:${PORTA}/`
-const LARGURAS = [390, 1440]
+const LARGURAS = [320, 390, 1440]
 mkdirSync('screenshots', { recursive: true })
 
 const servidor = spawn('npx', ['vite', 'preview', '--port', String(PORTA), '--strictPort'], {

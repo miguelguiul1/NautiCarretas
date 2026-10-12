@@ -11,18 +11,19 @@ npm run dev          # http://localhost:5173
 npm run build        # gera dist/
 npm run preview      # serve dist/ em http://localhost:4173
 npm run lint
-npm run screenshots  # depois do build: screenshots em 390 e 1440 px + checagem de console/404/rolagem horizontal
+npm run screenshots  # depois do build: screenshots em 320, 390 e 1440 px + checagem de console/404/rolagem horizontal
 ```
 
 ## Estrutura
 
 - `src/config.ts`: dados confirmados do negócio, links de WhatsApp/mapa/Instagram e a chave `MOSTRAR_PENDENCIAS`
-- `src/data/anatomia.ts`: peças e serviços do desenho técnico (seção "Peça por peça")
+- `src/data/anatomia.ts`: peças e serviços da seção "Peça por peça", com a posição de cada ponto sobre a foto (em %)
 - `src/data/galeria.ts`: fotos e vídeos da seção "Oficina"
 - `src/data/antesDepois.ts`: pares antes/depois (a seção só aparece quando a lista tiver itens)
-- `src/components/`: uma seção por arquivo; `DesenhoCarreta.tsx` é o SVG técnico
+- `src/components/`: uma seção por arquivo
 - `scripts/process-assets.sh`: gera `public/media` a partir dos originais em `materiais/` (fora do git), sem metadados/GPS
-- `screenshots/`: capturas em 390 e 1440 px
+- `scripts/limpar-fundo-logo.py`: deixa o fundo da logo exatamente `#0B1023` (o JPEG original tem ruído), para ela se fundir ao cabeçalho
+- `screenshots/`: capturas em 320, 390 e 1440 px
 
 ## Pendências (TODO-CONFIRMAR)
 

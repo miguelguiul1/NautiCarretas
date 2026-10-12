@@ -33,7 +33,7 @@ export function Hero() {
   }
 
   return (
-    <section id="topo" aria-labelledby="hero-titulo" className="relative isolate overflow-hidden pt-16">
+    <section id="topo" aria-labelledby="hero-titulo" className="relative isolate overflow-hidden pt-20">
       {/* Grade técnica de fundo, bem sutil */}
       <div
         aria-hidden="true"
@@ -45,7 +45,7 @@ export function Hero() {
         }}
       />
 
-      <div className="container-site relative grid min-h-[calc(100svh-4rem)] content-end gap-10 pt-8 pb-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:content-center lg:items-center lg:gap-16 lg:py-12">
+      <div className="container-site relative grid min-h-[calc(100svh-5rem)] content-end gap-10 pt-8 pb-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:content-center lg:items-center lg:gap-16 lg:py-12">
         <div className="relative z-10">
           <p className="nota mb-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-papel/80 lg:text-nevoa">
             <span className="text-ouro">Oficina</span>
@@ -119,7 +119,7 @@ export function Hero() {
                 <button
                   type="button"
                   onClick={alternar}
-                  className="nota absolute top-20 right-4 z-20 flex min-h-11 items-center gap-2 border border-papel/30 bg-noite/70 px-3 text-[0.68rem] text-papel backdrop-blur transition-colors hover:border-ouro lg:top-auto lg:right-3 lg:bottom-3"
+                  className="nota absolute top-24 right-4 z-20 flex min-h-11 items-center gap-2 border border-papel/30 bg-noite/70 px-3 text-[0.68rem] text-papel backdrop-blur transition-colors hover:border-ouro lg:top-auto lg:right-3 lg:bottom-3"
                   aria-label={tocando ? 'Pausar vídeo' : 'Tocar vídeo'}
                 >
                   {tocando ? <IconePause /> : <IconePlay />}
