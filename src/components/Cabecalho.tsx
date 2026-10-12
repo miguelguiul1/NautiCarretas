@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
-import { MENSAGEM_PADRAO, whatsappUrl } from '../config'
 import { cn } from '../lib/cn'
-import { IconeMenu, IconeWhatsApp } from './Icones'
+import { IconeMenu } from './Icones'
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from './ui/dialog'
 
 const LINKS = [
-  { href: '#o-que-fazemos', rotulo: 'O que fazemos' },
+  { href: '#o-que-fazemos', rotulo: 'O que a gente faz' },
   { href: '#anatomia', rotulo: 'Peça por peça' },
   { href: '#oficina', rotulo: 'Oficina' },
   { href: '#quem-faz', rotulo: 'Quem faz' },
@@ -61,15 +60,6 @@ export function Cabecalho() {
         <div className="flex items-center gap-2">
           <a href="#orcamento" className="btn btn-ouro hidden !min-h-10 !px-4 !py-2 !text-sm sm:inline-flex">
             Pedir orçamento
-          </a>
-          <a
-            href={whatsappUrl(MENSAGEM_PADRAO)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="grid h-11 w-11 place-items-center text-papel transition-colors hover:text-ouro-claro sm:hidden"
-            aria-label="Conversar no WhatsApp"
-          >
-            <IconeWhatsApp />
           </a>
 
           <Dialog open={menuAberto} onOpenChange={setMenuAberto}>

@@ -51,29 +51,32 @@ convert "$OUT/tmp-icon.png" \( -clone 0 -resize 16x16 \) \( -clone 0 -resize 32x
 convert -size 1200x630 xc:'#0B1023' \( "$LOGO" -crop 820x380+130+318 +repage -resize 900x \) -gravity center -composite -strip -quality 86 public/og-image.jpg
 rm "$OUT"/tmp-*.png
 
-# Vídeos (mudos, sem metadados). clip <origem> <nome> <início> <duração> <crop>
+# Vídeos (mudos, sem metadados). clip <origem> <nome> <início> <duração> <filtro> [instante do poster]
+# O instante do poster é o quadro mais nítido do trecho (variância do laplaciano medida nos originais).
 clip() {
   local src="$SRC/$1" name="$2" ss="$3" t="$4" vf="$5"
+  local poster="${6:-$(awk "BEGIN{print $ss+1.5}")}"
   ffmpeg -v error -y -ss "$ss" -t "$t" -i "$src" -an -map_metadata -1 -vf "$vf" \
     -c:v libx264 -profile:v high -preset slow -crf 27 -pix_fmt yuv420p -movflags +faststart "$OUT/$name.mp4"
   ffmpeg -v error -y -ss "$ss" -t "$t" -i "$src" -an -map_metadata -1 -vf "$vf" \
     -c:v libvpx-vp9 -b:v 0 -crf 40 -row-mt 1 -deadline good -cpu-used 2 "$OUT/$name.webm"
-  ffmpeg -v error -y -ss "$(awk "BEGIN{print $ss+1.5}")" -i "$src" -frames:v 1 -map_metadata -1 -vf "$vf" "$OUT/tmp-poster.png"
-  convert "$OUT/tmp-poster.png" -strip -quality 78 "$OUT/$name-poster.jpg"
-  convert "$OUT/tmp-poster.png" -strip -quality 72 "$OUT/$name-poster.webp"
+  # poster sempre na resolução nativa (sem o scale do vídeo)
+  ffmpeg -v error -y -ss "$poster" -i "$src" -frames:v 1 -map_metadata -1 -vf "${vf/,scale=540:-2/}" "$OUT/tmp-poster.png"
+  convert "$OUT/tmp-poster.png" -strip -quality 85 "$OUT/$name-poster.jpg"
+  convert "$OUT/tmp-poster.png" -strip -quality 82 "$OUT/$name-poster.webp"
   rm "$OUT/tmp-poster.png"
 }
 # Vídeo 1: oficina, carreta de encalhe de madeira. 0–9 s tem pessoa e o final mostra alguém na porta: não usados.
-clip b21e5f0b-nauticarretas_20261012_170754178.mp4 encalhe-bercos 15.5 13 "crop=720:1040:0:120,scale=540:-2,fps=30"
+clip b21e5f0b-nauticarretas_20261012_170754178.mp4 encalhe-bercos 15.5 13 "crop=720:1040:0:120,fps=30" 20.1
 # Vídeo 2: bote na carreta. 0–9 s e após ~21 s aparecem pessoas: não usados.
-clip 460d7541-nauticarretas_20261012_170807763.mp4 bote-carreta 14 7 "crop=720:1040:0:160,scale=540:-2,fps=30"
+clip 460d7541-nauticarretas_20261012_170807763.mp4 bote-carreta 14 7 "crop=720:1040:0:160,scale=540:-2,fps=30" 15.5   # 540 px: grama pesa muito em 720
 # Vídeo 4: carreta de encalhe de madeira com placa. 0–21 s tem pessoa (selfie): não usado.
 V4=ee0ec02c-nauticarretas_20261012_173309212.mp4
 clip $V4 hero-oficina 22 13 "crop=720:1100:0:90,fps=30"
+# Quadros parados na resolução nativa do vídeo (720 px), no instante mais nítido.
 still() { ffmpeg -v error -y -ss "$2" -i "$SRC/$1" -frames:v 1 -map_metadata -1 -vf "$4" "$OUT/tmp-still.png"
-  convert "$OUT/tmp-still.png" -strip -quality 82 "$OUT/$3.jpg"; convert "$OUT/tmp-still.png" -strip -quality 76 "$OUT/$3.webp"; rm "$OUT/tmp-still.png"; }
-still $V4 29.6 placa-nauticarretas "crop=720:720:0:280"
-still $V4 52.5 encalhe-madeira-berco "crop=720:1040:0:120"
-still $V4 26.5 encalhe-madeira-engate "crop=720:1040:0:120"
+  convert "$OUT/tmp-still.png" -strip -quality 86 "$OUT/$3.jpg"; convert "$OUT/tmp-still.png" -strip -quality 84 "$OUT/$3.webp"; rm "$OUT/tmp-still.png"; }
+still $V4 30.9 placa-nauticarretas "crop=720:560:0:420"
+still $V4 24.5 encalhe-madeira-engate "crop=720:1040:0:120"
 # Vídeo 3: só pessoas falando — não publicado até confirmação.
 ls -la "$OUT"

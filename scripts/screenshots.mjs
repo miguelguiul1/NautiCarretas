@@ -7,7 +7,7 @@ import { chromium } from '@playwright/test'
 const PORTA = 4173
 const URL_BASE = `http://localhost:${PORTA}/`
 const LARGURAS = [320, 390, 1440]
-mkdirSync('screenshots', { recursive: true })
+mkdirSync('screenshots/secoes', { recursive: true })
 
 const servidor = spawn('npx', ['vite', 'preview', '--port', String(PORTA), '--strictPort'], {
   stdio: 'ignore',
@@ -79,6 +79,38 @@ for (const largura of LARGURAS) {
       await page.locator('#orcamento label', { hasText: 'Manutenção' }).first().click()
       await page.locator('#orcamento label', { hasText: 'Revisão e troca de rolamentos' }).click()
       await page.locator('#orcamento').screenshot({ path: `screenshots/orcamento-${largura}.png` })
+
+      // Botão flutuante do WhatsApp: visível na galeria, escondido na seção de orçamento
+      const flutuante = page.locator('a[aria-label="Conversar no WhatsApp"]').last()
+      const opacidade = () => flutuante.evaluate((el) => getComputedStyle(el).opacity)
+      await page.locator('#oficina').scrollIntoViewIfNeeded()
+      await page.waitForTimeout(500)
+      const naGaleria = await opacidade()
+      await page.locator('#orcamento h2').scrollIntoViewIfNeeded()
+      await page.waitForTimeout(500)
+      const noOrcamento = await opacidade()
+      const zapsNoCabecalho = await page.locator('header a[href*="wa.me"]').evaluateAll(
+        (els) => els.filter((e) => e.offsetParent !== null).length,
+      )
+      console.log(
+        `   flutuante: galeria opacity=${naGaleria}, orçamento opacity=${noOrcamento} · links de WhatsApp visíveis no cabeçalho: ${zapsNoCabecalho}`,
+      )
+      if (naGaleria !== '1' || noOrcamento !== '0' || zapsNoCabecalho) falhou = true
+
+      // Uma captura por seção (cabeçalho e botão flutuante escondidos só nessas capturas, para não cobrir o conteúdo)
+      await page.addStyleTag({ content: 'header, a[aria-label="Conversar no WhatsApp"] { visibility: hidden !important }' })
+      for (const [nome, seletor] of [
+        ['1-hero', '#topo'],
+        ['2-frentes', '#o-que-fazemos'],
+        ['3-anatomia', '#anatomia'],
+        ['4-oficina', '#oficina'],
+        ['5-quem-faz', '#quem-faz'],
+        ['6-orcamento', '#orcamento'],
+        ['7-contato', '#contato'],
+        ['8-rodape', 'footer'],
+      ]) {
+        await page.locator(seletor).screenshot({ path: `screenshots/secoes/${nome}-${largura}.png` })
+      }
     }
     const status = scrollW > innerW ? `ROLAGEM HORIZONTAL (${scrollW} > ${innerW})` : 'sem rolagem horizontal'
     console.log(`[${largura}px${sufixo}] ${status} · ${erros.length} erro(s)`)

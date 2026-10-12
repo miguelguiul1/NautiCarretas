@@ -78,8 +78,8 @@ export function Anatomia() {
             </h2>
           </div>
           <p className="max-w-md text-noite/75 lg:col-span-4 lg:col-start-9 lg:self-end">
-            Toque numa letra da foto (ou na lista abaixo) para ver o que a gente faz naquela parte da carreta
-            e pedir o orçamento só daquilo.
+            Toque numa letra da foto (ou na lista abaixo) pra ver o que a gente faz naquela parte da carreta e
+            pedir o orçamento só daquilo.
           </p>
         </div>
 
@@ -226,7 +226,7 @@ export function Anatomia() {
               <p className="mt-3 text-papel/85">{parte.descricao}</p>
               {!parte.ponto && (
                 <p className="nota mt-3 border-l-2 border-ouro pl-3 text-[0.66rem] leading-relaxed text-nevoa">
-                  Serviço geral: vale para a estrutura toda, por isso não tem um ponto na foto.
+                  Serviço geral: vale pra estrutura toda, por isso não tem um ponto na foto.
                 </p>
               )}
 

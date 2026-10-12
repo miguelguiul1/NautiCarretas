@@ -34,8 +34,8 @@ export function Frentes() {
             Três frentes de trabalho, uma oficina só.
           </h2>
           <p className="max-w-md text-nevoa lg:col-span-4 lg:col-start-9 lg:self-end">
-            Fabricamos carreta nova, reformamos a que já existe e fazemos a manutenção que deixa ela pronta
-            para a estrada e para a rampa.
+            A gente fabrica carreta nova, reforma a que já existe e faz a manutenção que deixa ela pronta pra
+            estrada e pra rampa.
           </p>
         </div>
 
@@ -69,7 +69,7 @@ export function Frentes() {
               Rodoviárias
             </h3>
             <p className="mt-4 text-lg text-papel/85">
-              Carroceria de madeira envernizada sobre estrutura de aço preto. Fabricamos e reformamos.
+              Carroceria de madeira envernizada sobre estrutura de aço preto. A gente fabrica e reforma.
             </p>
             <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-3" aria-label="Materiais">
               <Material cor="linear-gradient(90deg,#b56d22,#e3a557,#c47f2c)" nome="Madeira envernizada" />
@@ -86,7 +86,7 @@ export function Frentes() {
               De encalhe
             </h3>
             <p className="mt-4 text-lg text-papel/85">
-              A carreta que leva o barco até a água e traz de volta. Feita para o casco que vai em cima,
+              A carreta que leva o barco até a água e traz de volta. Feita pro casco que vai em cima,
               inclusive com estrutura de madeira.
             </p>
             <ul className="mt-6 border-t border-linha">

@@ -109,8 +109,8 @@ export function Orcamento() {
             Monte o pedido. A conversa segue no WhatsApp.
           </h2>
           <p className="max-w-md text-nevoa lg:col-span-4 lg:col-start-9 lg:self-end">
-            Escolha o tipo de carreta e o que precisa. A mensagem fica pronta para você mandar, junto com uma
-            foto da carreta. Nada é gravado neste site.
+            Escolha o tipo de carreta e o que você precisa. A mensagem já fica pronta pra você mandar, junto
+            com uma foto da carreta.
           </p>
         </div>
 
@@ -252,7 +252,7 @@ export function Orcamento() {
               </button>
               {!pronto && (
                 <p className="nota mt-3 text-center text-[0.64rem] text-nevoa">
-                  Escolha a carreta e o que precisa para liberar
+                  Escolha a carreta e o que precisa pra liberar
                 </p>
               )}
             </div>

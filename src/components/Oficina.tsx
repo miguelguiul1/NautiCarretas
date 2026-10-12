@@ -12,9 +12,6 @@ const LAYOUT = [
   'lg:col-span-3 lg:row-span-2',
   'lg:col-span-3 lg:row-span-2',
   'lg:col-span-2 lg:row-span-2',
-  'lg:col-span-3 lg:row-span-2',
-  'lg:col-span-3 lg:row-span-2',
-  'lg:col-span-6 lg:row-span-2',
   'lg:col-span-4 lg:row-span-2',
   'lg:col-span-4 lg:row-span-2',
   'lg:col-span-4 lg:row-span-2',
@@ -66,8 +63,8 @@ export function Oficina() {
             Saiu da oficina.
           </h2>
           <p className="max-w-md text-nevoa lg:col-span-4 lg:col-start-9 lg:self-end">
-            Madeira, aço, verniz e berço revestido. Carretas feitas e reformadas aqui, do jeito que saíram do
-            galpão.
+            Madeira, aço, verniz e berço revestido. Carreta que a gente fez e reformou aqui, do jeito que saiu
+            do galpão.
           </p>
         </div>
 
@@ -79,8 +76,9 @@ export function Oficina() {
                 'relative aspect-[3/4] lg:aspect-auto',
                 LAYOUT[i],
                 i === 0 && 'col-span-2 aspect-[4/5] sm:col-span-1 sm:aspect-[3/4]',
-                i === GALERIA.length - 1 &&
-                  'col-span-2 aspect-[16/10] sm:col-span-3 sm:aspect-[16/7] lg:aspect-auto',
+                // 7 itens: no celular o 1º ocupa a linha toda (6 restantes fecham 3 linhas);
+                // em 3 colunas o último ocupa a linha toda
+                i === GALERIA.length - 1 && 'sm:col-span-3 sm:aspect-[16/7] lg:aspect-auto',
               )}
             >
               <button

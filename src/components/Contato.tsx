@@ -15,7 +15,7 @@ export function Contato() {
             href={whatsappUrl(MENSAGEM_PADRAO)}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col justify-between gap-10 bg-noite p-6 transition-colors hover:bg-noite-3 sm:p-8 md:col-span-2 lg:col-span-5"
+            className="group flex flex-col justify-start gap-6 bg-noite p-6 transition-colors hover:bg-noite-3 sm:p-8 md:col-span-2 lg:col-span-5"
           >
             <span className="nota flex items-center gap-2 text-[0.7rem] text-ouro">
               <IconeWhatsApp width={16} height={16} /> WhatsApp

@@ -23,7 +23,12 @@ npm run screenshots  # depois do build: screenshots em 320, 390 e 1440 px + chec
 - `src/components/`: uma seção por arquivo
 - `scripts/process-assets.sh`: gera `public/media` a partir dos originais em `materiais/` (fora do git), sem metadados/GPS
 - `scripts/limpar-fundo-logo.py`: deixa o fundo da logo exatamente `#0B1023` (o JPEG original tem ruído), para ela se fundir ao cabeçalho
-- `screenshots/`: capturas em 320, 390 e 1440 px
+- `screenshots/`: capturas em 320, 390 e 1440 px; `screenshots/secoes/` tem uma captura por seção
+
+## Foto do Fábio (opcional)
+
+Coloque `public/media/fabio-oficina.webp` (retrato, 4:5, ~800 × 1000 px) e rode `npm run build` (ou reinicie o
+`npm run dev`). A foto passa a aparecer na seção "Quem faz". Sem o arquivo, nada aparece e nenhuma requisição é feita.
 
 ## Pendências (TODO-CONFIRMAR)
 
@@ -39,5 +44,5 @@ Procure por `TODO-CONFIRMAR` no código. Os textos provisórios aparecem com a m
 
 - Logo com fundo transparente (PNG ou SVG). A atual tem o fundo azul `#0B1023` embutido e por isso é sempre aplicada sobre essa cor.
 - Fotos de antes e depois de reformas (mesmo enquadramento).
-- Autorização para usar imagens com pessoas (Fábio e equipe). Hoje nenhum quadro com gente é publicado.
+- Foto do Fábio na oficina (`public/media/fabio-oficina.webp`) e autorização para usar imagens com pessoas. Hoje nenhum quadro com gente é publicado.
 - Fotos de carretas de lancha e de veleiro.
